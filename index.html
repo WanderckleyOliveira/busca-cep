@@ -9,35 +9,48 @@
 
 <body>
     <h1>Consulta CEP</h1>
-
     <input type="text" placeholder="Digite seu CEP" id="cepDigitado">
-    <button onclick="PesquisarCEP">Pesquisar</button>
-
+    <button onclick="pesquisarCEP()">Pesquisar</button>
     <table>
         <tr>
-            <td>CEP</td>
-            <td></td>
+            <td>CEP:</td>
+            <td id="cep"></td>
         </tr>
         <tr>
-            <td>Lougradouro</td>
-            <td></td>
+            <td>Logradouro:</td>
+            <td id="Logradouro"></td>
         </tr>
         <tr>
-            <td>Bairro</td>
-            <td></td>
+            <td>Bairro:</td>
+            <td id="Bairro"></td>
         </tr>
         <tr>
-            <td>Cidade</td>
-            <td></td>
+            <td>Cidade:</td>
+            <td id="Cidade"></td>
         </tr>
         <tr>
-            <td>Estado</td>
-            <td></td>
+            <td>Estado:</td>
+            <td id="Estado"></td>
         </tr>
 
+
+        <script>
+            function pesquisarCEP() {
+                var cepDigitado = document.querySelector("#cepDigitado").value
+                var url = 'https://viacep.com.br/ws/' + cepDigitado + '/json/'
+
+                fetch(url).then((response) => {
+                    return response.json()
+                }).then((response) => {
+                    document.querySelector("#cep").innerText = response.cep
+                    document.querySelector("#Logradouro").innerText = response.logradouro
+                    document.querySelector("#Bairro").innerText = response.bairro
+                    document.querySelector("#Cidade").innerText = response.localidade
+                    document.querySelector("#Estado").innerText = response.uf
+                })
+            }
+        </script>
     </table>
-
-
 </body>
 
 </html>
